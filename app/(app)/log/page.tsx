@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { redirect } from 'next/navigation'
+import { TonightCard } from '@/components/coaching/TonightCard'
 import { NightPicker } from '@/components/log/NightPicker'
 import { RecentNights } from '@/components/log/RecentNights'
 import { SleepLogForm } from '@/components/log/SleepLogForm'
@@ -36,6 +37,7 @@ export default async function LogPage({ searchParams }: { searchParams: { date?:
     <div className="space-y-5">
       <NightPicker date={date} today={today} />
       <RecentNights logs={logs} today={today} selected={date} />
+      <TonightCard refreshKey={logs.find((l) => l.sleep_date === today)?.updated_at} />
       <SleepLogForm key={date} date={date} isTonight={date === today} initial={current} suggested={suggested} />
     </div>
   )

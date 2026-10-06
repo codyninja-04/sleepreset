@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { redirect } from 'next/navigation'
+import { TonightCard } from '@/components/coaching/TonightCard'
 import { AnalyzeButton } from '@/components/insights/AnalyzeButton'
 import { CorrelationCard } from '@/components/insights/CorrelationCard'
 import { PersonalPatternChart } from '@/components/insights/PersonalPatternChart'
@@ -84,6 +85,8 @@ export default async function InsightsPage() {
               <p className="mt-3 text-lg font-semibold leading-snug sm:text-xl">{insight.top_recommendation}</p>
             </section>
           )}
+
+          <TonightCard />
 
           <PersonalPatternChart correlations={insight.correlations} />
 

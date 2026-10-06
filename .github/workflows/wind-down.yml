@@ -1,0 +1,25 @@
+name: Wind-down reminders
+
+# Calls the wind-down endpoint every 15 minutes. The endpoint works out who is
+# due a nudge from each user's own timezone, target bedtime and wind-down length.
+# Needs two repository secrets: APP_URL (e.g. https://sleepreset.app) and CRON_SECRET,
+# and the repository variable REMINDERS_ENABLED set to true.
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+
+jobs:
+  remind:
+    runs-on: ubuntu-latest
+    if: ${{ vars.REMINDERS_ENABLED == 'true' }}
+    steps:
+      - name: Trigger wind-down reminders
+        env:
+          APP_URL: ${{ secrets.APP_URL }}
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
+        run: |
+          curl --fail --silent --show-error --max-time 60 \
+            -H "Authorization: Bearer $CRON_SECRET" \
+            "$APP_URL/api/cron/wind-down"
