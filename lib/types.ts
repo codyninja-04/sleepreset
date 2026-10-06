@@ -55,6 +55,9 @@ export interface Correlation {
   without_avg: number | null
   with_n: number
   without_n: number
+  /** Average minutes in bed on each side, when times were logged */
+  with_duration?: number | null
+  without_duration?: number | null
 }
 
 export interface SleepInsight {
